@@ -1,6 +1,11 @@
-﻿import * as THREE from "three"
+﻿import * as THREE from 'three'
 
-interface Dot { x:number; y:number; vx:number; vy:number }
+interface Dot {
+  x: number
+  y: number
+  vx: number
+  vy: number
+}
 
 export interface NeuralCanvasOptions {
   particleColor?: number
@@ -34,14 +39,15 @@ export function useNeuralCanvas() {
       linkDist = 0.18,
     } = opts
 
-    const w = el.offsetWidth, h = el.offsetHeight
+    const w = el.offsetWidth,
+      h = el.offsetHeight
     renderer = new THREE.WebGLRenderer({ canvas: el, antialias: false, alpha: false })
     renderer.setPixelRatio(1)
     renderer.setSize(w, h)
     renderer.setClearColor(bgColor, 1)
 
     scene = new THREE.Scene()
-    camera = new THREE.OrthographicCamera(-1, 1, h/w, -h/w, 0, 1)
+    camera = new THREE.OrthographicCamera(-1, 1, h / w, -h / w, 0, 1)
     camera.position.z = 1
 
     for (let i = 0; i < count; i++) {
@@ -54,19 +60,37 @@ export function useNeuralCanvas() {
     }
 
     geoPoints = new THREE.BufferGeometry()
-    geoPoints.setAttribute("position", new THREE.BufferAttribute(new Float32Array(count * 3), 3))
-    scene.add(new THREE.Points(geoPoints, new THREE.PointsMaterial({
-      color: particleColor, size: 0.006, transparent: true, opacity: 0.5,
-    })))
+    geoPoints.setAttribute('position', new THREE.BufferAttribute(new Float32Array(count * 3), 3))
+    scene.add(
+      new THREE.Points(
+        geoPoints,
+        new THREE.PointsMaterial({
+          color: particleColor,
+          size: 0.006,
+          transparent: true,
+          opacity: 0.5,
+        }),
+      ),
+    )
 
     geoLines = new THREE.BufferGeometry()
-    geoLines.setAttribute("position", new THREE.BufferAttribute(new Float32Array(count * count * 6), 3))
-    scene.add(new THREE.LineSegments(geoLines, new THREE.LineBasicMaterial({
-      color: lineColor, transparent: true, opacity: 0.25,
-    })))
+    geoLines.setAttribute(
+      'position',
+      new THREE.BufferAttribute(new Float32Array(count * count * 6), 3),
+    )
+    scene.add(
+      new THREE.LineSegments(
+        geoLines,
+        new THREE.LineBasicMaterial({
+          color: lineColor,
+          transparent: true,
+          opacity: 0.25,
+        }),
+      ),
+    )
 
-    el.addEventListener("mousemove", onMouse)
-    window.addEventListener("resize", () => onResize(h / w))
+    el.addEventListener('mousemove', onMouse)
+    window.addEventListener('resize', () => onResize(h / w))
     tick(linkDist, count, h / w)
   }
 
@@ -74,32 +98,47 @@ export function useNeuralCanvas() {
     animId = requestAnimationFrame(() => tick(linkDist, count, aspect))
     if (!geoPoints || !geoLines || !scene || !camera || !renderer) return
 
-    const pp = geoPoints.attributes.position.array as Float32Array
-    const lp = geoLines.attributes.position.array as Float32Array
+    const posAttr = geoPoints.attributes['position']
+    const lineAttr = geoLines.attributes['position']
+    if (!posAttr || !lineAttr) return
+
+    const pp = posAttr.array as Float32Array
+    const lp = lineAttr.array as Float32Array
 
     for (let i = 0; i < count; i++) {
       const d = dots[i]
+      if (!d) continue
       d.x += d.vx + (mouse.x - d.x) * 0.00005
       d.y += d.vy + (mouse.y - d.y) * 0.00005
       if (Math.abs(d.x) > 1.05) d.vx *= -1
       if (Math.abs(d.y) > aspect * 1.05) d.vy *= -1
-      pp[i*3]=d.x; pp[i*3+1]=d.y; pp[i*3+2]=0
+      pp[i * 3] = d.x
+      pp[i * 3 + 1] = d.y
+      pp[i * 3 + 2] = 0
     }
-    geoPoints.attributes.position.needsUpdate = true
+    posAttr.needsUpdate = true
 
     let li = 0
     for (let i = 0; i < count; i++) {
-      for (let j = i+1; j < count; j++) {
-        const dx = dots[i].x - dots[j].x, dy = dots[i].y - dots[j].y
-        if (dx*dx + dy*dy < linkDist*linkDist) {
-          lp[li++]=dots[i].x; lp[li++]=dots[i].y; lp[li++]=0
-          lp[li++]=dots[j].x; lp[li++]=dots[j].y; lp[li++]=0
+      for (let j = i + 1; j < count; j++) {
+        const di = dots[i]
+        const dj = dots[j]
+        if (!di || !dj) continue
+        const dx = di.x - dj.x
+        const dy = di.y - dj.y
+        if (dx * dx + dy * dy < linkDist * linkDist) {
+          lp[li++] = di.x
+          lp[li++] = di.y
+          lp[li++] = 0
+          lp[li++] = dj.x
+          lp[li++] = dj.y
+          lp[li++] = 0
         }
       }
     }
-    for (let i=li; i<lp.length; i++) lp[i]=0
-    geoLines.attributes.position.needsUpdate = true
-    geoLines.setDrawRange(0, li/3)
+    for (let i = li; i < lp.length; i++) lp[i] = 0
+    lineAttr.needsUpdate = true
+    geoLines.setDrawRange(0, li / 3)
 
     renderer.render(scene, camera)
   }
@@ -113,16 +152,18 @@ export function useNeuralCanvas() {
 
   function onResize(aspect: number) {
     if (!canvasEl || !renderer || !camera) return
-    const w = canvasEl.offsetWidth, h = canvasEl.offsetHeight
+    const w = canvasEl.offsetWidth,
+      h = canvasEl.offsetHeight
     renderer.setSize(w, h)
-    camera.top = h / w; camera.bottom = -h / w
+    camera.top = h / w
+    camera.bottom = -h / w
     camera.updateProjectionMatrix()
     aspect = h / w
   }
 
   function destroy() {
     if (animId) cancelAnimationFrame(animId)
-    canvasEl?.removeEventListener("mousemove", onMouse)
+    canvasEl?.removeEventListener('mousemove', onMouse)
     renderer?.dispose()
     dots.length = 0
   }
