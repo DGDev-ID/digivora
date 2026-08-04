@@ -147,8 +147,8 @@ export function useDotWave() {
     for (let i = 0; i < cols; i++) {
       for (let j = 0; j < rows; j++) {
         const idx = i * rows + j
-        const x = positions[idx * 3]
-        const z = positions[idx * 3 + 2]
+        const x = positions[idx * 3] as number
+        const z = positions[idx * 3 + 2] as number
 
         // Multiple sine waves for organic movement
         const wave1 = Math.sin(x * 0.4 + elapsed * 1.2) * amplitude * 0.6
@@ -161,7 +161,9 @@ export function useDotWave() {
       }
     }
 
-    particles.geometry.attributes.position.needsUpdate = true
+    if (particles.geometry.attributes.position) {
+      ;(particles.geometry.attributes.position as THREE.BufferAttribute).needsUpdate = true
+    }
     renderer.render(scene, camera)
   }
 
