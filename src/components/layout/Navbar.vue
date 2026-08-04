@@ -2,9 +2,7 @@
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { Menu, X } from 'lucide-vue-next'
-import { useI18n } from '@/composables/useI18n'
 
-const { lang, t, toggleLang } = useI18n()
 const route = useRoute()
 
 const isMenuOpen = ref(false)
@@ -23,12 +21,12 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
 const navItems = computed(() => [
   { label: 'Home', to: '/' },
-  { label: t.value.nav.about, to: '/about' },
-  { label: t.value.nav.services, to: '/services' },
-  { label: t.value.nav.work, to: '/portfolio' },
-  { label: t.value.nav.caseStudy, to: '/case-study' },
-  { label: t.value.nav.blog, to: '/blog' },
-  { label: t.value.nav.faq, to: '/faq' },
+  { label: 'About', to: '/about' },
+  { label: 'Services', to: '/services' },
+  { label: 'Portfolio', to: '/portfolio' },
+  { label: 'Case Study', to: '/case-study' },
+  { label: 'Blog', to: '/blog' },
+  { label: 'FAQ', to: '/faq' },
 ])
 </script>
 
@@ -74,32 +72,20 @@ const navItems = computed(() => [
 
       <!-- CTA + Language Toggle -->
       <div class="hidden lg:flex items-center gap-3">
-        <button
-          @click="toggleLang"
-          class="flex items-center gap-1.5 text-xs font-semibold tracking-[0.15em] uppercase px-3 py-2 border transition-all duration-300 border-[#E5E7EB]/20 text-[#E5E7EB]/50 hover:border-[#00BFA6] hover:text-[#00BFA6]"
-          :title="lang === 'en' ? 'Switch to Bahasa Indonesia' : 'Switch to English'"
-        >
-          <span class="text-[10px]">{{ lang === 'en' ? '🇮🇩' : '🇺🇸' }}</span>
-          <span>{{ lang === 'en' ? 'ID' : 'EN' }}</span>
-        </button>
+        
 
         <RouterLink
           to="/contact"
           class="text-xs font-semibold tracking-[0.2em] uppercase px-6 py-2.5 transition-all duration-300 hover:opacity-90"
           style="background-color: #00BFA6; color: #0B1312;"
         >
-          {{ t.nav.cta }}
+          Get in Touch
         </RouterLink>
       </div>
 
       <!-- Mobile right -->
       <div class="lg:hidden flex items-center gap-2">
-        <button
-          @click="toggleLang"
-          class="flex items-center gap-1 text-[10px] font-bold tracking-widest uppercase px-2.5 py-1.5 border transition-all duration-300 border-[#E5E7EB]/20 text-[#E5E7EB]/50"
-        >
-          <span>{{ lang === 'en' ? '🇮🇩 ID' : '🇺🇸 EN' }}</span>
-        </button>
+        
         <button
           class="p-2 text-[#E5E7EB]"
           @click="toggleMenu"
@@ -144,7 +130,7 @@ const navItems = computed(() => [
             style="background-color: #00BFA6; color: #0B1312;"
             @click="isMenuOpen = false"
           >
-            {{ t.nav.cta }}
+            Get in Touch
           </RouterLink>
         </div>
       </div>

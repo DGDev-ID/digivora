@@ -3,11 +3,9 @@ import { onMounted, ref, computed, watch, nextTick } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useCountUp } from '@/composables/useCountUp'
-import { useI18n } from '@/composables/useI18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const { t, lang } = useI18n()
 const sectionRef = ref<HTMLElement | null>(null)
 const { run: runCountUp } = useCountUp()
 
@@ -16,16 +14,12 @@ function setNumRef(el: unknown, i: number) {
   if (el) numRefs.value[i] = el as HTMLElement
 }
 
-const stats = computed(() => t.value.trust.stats)
+const stats = [
+  {num:20,suffix:'+',label:'Projects Delivered',desc:'Across multiple industries'},
+  {num:10,suffix:'+',label:'Global Clients',desc:'Trusting our engineering'},
+  {num:99,suffix:'%',label:'Satisfaction Rate',desc:'Based on client feedback'}
+]
 
-watch(lang, async () => {
-  await nextTick()
-  if (!sectionRef.value) return
-  gsap.set(sectionRef.value.querySelectorAll('.trust-stat'), { opacity: 1, y: 0 })
-  gsap.set(sectionRef.value.querySelectorAll('.trust-ind'), { opacity: 1, y: 0 })
-  const q = sectionRef.value.querySelector('.trust-quote')
-  if (q) gsap.set(q, { opacity: 1, y: 0 })
-})
 
 onMounted(() => {
   const ctx = gsap.context(() => {
@@ -73,7 +67,7 @@ onMounted(() => {
 
   // Count-up numbers triggered on scroll
   if (sectionRef.value) {
-    const items = stats.value
+    const items = stats
       .map((s, i) => ({
         el: numRefs.value[i],
         target: s.num,
@@ -93,9 +87,7 @@ onMounted(() => {
       <!-- Label -->
       <div class="flex items-center gap-4 mb-16">
         <div class="h-px w-8" style="background-color: #00BFA6;"></div>
-        <span class="text-xs font-semibold tracking-[0.35em] uppercase" style="color: rgba(0,191,166,0.6);">{{
-          t.trust.label
-        }}</span>
+        <span class="text-xs font-semibold tracking-[0.35em] uppercase" style="color: rgba(0,191,166,0.6);">Trusted By</span>
       </div>
 
       <!-- Stats with count-up -->
@@ -125,11 +117,11 @@ onMounted(() => {
           class="text-xs font-semibold tracking-[0.35em] uppercase mb-8 text-center"
           style="color: rgba(0,191,166,0.4);"
         >
-          {{ t.trust.industriesLabel }}
+          Industries We Serve
         </div>
         <div class="flex flex-wrap justify-center gap-3">
           <span
-            v-for="ind in t.trust.industries"
+            v-for="ind in ['Finance', 'Healthcare', 'E-Commerce', 'SaaS', 'Education', 'Logistics']"
             :key="ind"
             class="trust-ind text-xs font-medium tracking-widest uppercase px-5 py-2.5 cursor-default transition-all duration-300 hover:text-[#00BFA6] hover:border-[#00BFA6]"
             style="border: 1px solid rgba(0,191,166,0.2); color: rgba(229,231,235,0.55); opacity: 0;"
@@ -145,12 +137,10 @@ onMounted(() => {
           class="text-[clamp(1.5rem,3vw,2.5rem)] font-light leading-relaxed max-w-4xl mx-auto italic"
           style="color: rgba(229,231,235,0.35);"
         >
-          <template v-for="(line, i) in t.trust.quote.split('\n')" :key="i">
-            {{ line }}<br v-if="i < t.trust.quote.split('\n').length - 1" />
-          </template>
+          Technology is only as good<br />as the business value it creates.
         </p>
         <div class="mt-6 text-xs tracking-widest uppercase" style="color: rgba(0,191,166,0.3);">
-          {{ t.trust.quoteAttr }}
+          - Digivora Engineering Standard
         </div>
       </div>
     </div>

@@ -4,9 +4,7 @@ import { ArrowRight, ChevronDown } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
 import { gsap } from 'gsap'
 import { useDotWave } from '@/composables/useDotWave'
-import { useI18n } from '@/composables/useI18n'
 
-const { t } = useI18n()
 
 const canvasEl = ref<HTMLCanvasElement | null>(null)
 const heroRef = ref<HTMLElement | null>(null)
@@ -164,7 +162,7 @@ onUnmounted(() => {
           class="group inline-flex items-center gap-3 px-8 py-4 text-sm font-semibold tracking-[0.15em] uppercase transition-all duration-300 hover:opacity-90 rounded-xl"
           style="background-color: #00bfa6; color: #0b1312"
         >
-          {{ t.hero.cta1 }}
+          Explore Services
           <ArrowRight
             :size="16"
             class="transition-transform duration-300 group-hover:translate-x-1"
@@ -175,7 +173,7 @@ onUnmounted(() => {
           class="group inline-flex items-center gap-3 px-8 py-4 text-sm font-semibold tracking-[0.15em] uppercase transition-all duration-300 hover:bg-[#00BFA6]/10 hover:border-[#00BFA6] rounded-xl"
           style="border: 1px solid rgba(0, 191, 166, 0.35); color: #e5e7eb"
         >
-          {{ t.hero.cta2 }}
+          View Our Works
           <ArrowRight
             :size="16"
             class="transition-transform duration-300 group-hover:translate-x-1"

@@ -4,10 +4,8 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CheckCircle2, Users, Award, Globe, Zap } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
-import { useI18n } from '@/composables/useI18n'
 
 gsap.registerPlugin(ScrollTrigger)
-const { t } = useI18n()
 
 const timeline = [
   { year: '2019', title: 'Founded', desc: 'Digivora was born with a mission to deliver enterprise-grade digital solutions to businesses of all sizes.' },
@@ -81,9 +79,9 @@ onMounted(() => {
             <span class="text-xs font-semibold tracking-[0.35em] uppercase" style="color: rgba(0,191,166,0.7);">About Digivora</span>
           </div>
           <h1 class="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.05] tracking-tight mb-6">
-            {{ t.about.headlineWords.join(' ') }}
+            {{ ['Your', 'Technology', 'Partner', 'for', 'the', 'Digital', 'Era.'].join(' ') }}
           </h1>
-          <p class="text-lg leading-relaxed font-light mb-8" style="color: rgba(229,231,235,0.6);">{{ t.about.p1 }}</p>
+          <p class="text-lg leading-relaxed font-light mb-8" style="color: rgba(229,231,235,0.6);">Digivora is a modern technology company that helps businesses transform digitally through scalable software architecture, premium user experiences, and long-term technology ecosystems.</p>
           <RouterLink to="/contact"
             class="inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold tracking-[0.15em] uppercase rounded-xl hover:opacity-90 transition-opacity"
             style="background: #00BFA6; color: #0B1312;">
@@ -119,8 +117,8 @@ onMounted(() => {
             <span class="text-xs font-semibold tracking-[0.35em] uppercase" style="color: rgba(0,191,166,0.7);">Our Story</span>
           </div>
           <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-bold leading-tight mb-6">Building Digital<br /><span style="color: rgba(229,231,235,0.25);">Excellence</span><br />Since 2019</h2>
-          <p class="text-base leading-relaxed mb-4" style="color: rgba(229,231,235,0.55);">{{ t.about.p2 }}</p>
-          <p class="text-base leading-relaxed" style="color: rgba(229,231,235,0.55);">{{ t.about.p3 }}</p>
+          <p class="text-base leading-relaxed mb-4" style="color: rgba(229,231,235,0.55);">We don\'t build websites. We engineer digital infrastructure that becomes the backbone of your business growth — from enterprise web applications to automated systems, designed to scale from day one.</p>
+          <p class="text-base leading-relaxed" style="color: rgba(229,231,235,0.55);">From startups to enterprise, we operate at the intersection of design precision, engineering excellence, and business intelligence.</p>
         </div>
         <div class="relative">
           <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=700&q=80"

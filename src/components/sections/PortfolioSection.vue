@@ -4,11 +4,9 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowUpRight } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
-import { useI18n } from '@/composables/useI18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const { t } = useI18n()
 const sectionRef = ref<HTMLElement | null>(null)
 
 /**
@@ -148,17 +146,15 @@ onMounted(() => {
         <div>
           <div class="port-label flex items-center gap-4 mb-6">
             <div class="h-px w-8" style="background-color: #00BFA6;"></div>
-            <span class="text-xs font-semibold tracking-[0.35em] uppercase" style="color: rgba(0,191,166,0.6);">{{
-              t.portfolio.label
-            }}</span>
+            <span class="text-xs font-semibold tracking-[0.35em] uppercase" style="color: rgba(0,191,166,0.6);">Selected Works</span>
           </div>
           <h2
             class="port-heading text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.05] tracking-tight"
             style="color: #E5E7EB;"
           >
-            {{ t.portfolio.headlineDim }}<br />
-            {{ t.portfolio.headline }}<br />
-            <span style="color: rgba(229,231,235,0.25);">{{ t.portfolio.headline2 }}</span>
+            Work We<br />
+            Won't Stop<br />
+            <span style="color: rgba(229,231,235,0.25);">Being Proud Of.</span>
           </h2>
         </div>
         <div class="flex flex-col gap-4 md:items-end">

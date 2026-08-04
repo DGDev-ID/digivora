@@ -4,10 +4,8 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Globe, Smartphone, LayoutDashboard, Palette, Cpu, BarChart3, ArrowUpRight, Check } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
-import { useI18n } from '@/composables/useI18n'
 
 gsap.registerPlugin(ScrollTrigger)
-const { t } = useI18n()
 
 const iconMap = [Globe, Smartphone, LayoutDashboard, Palette, Cpu, BarChart3]
 const serviceImages = [
@@ -20,7 +18,14 @@ const serviceImages = [
 ]
 
 const services = computed(() =>
-  t.value.services.items.map((item, i) => ({
+  [
+    {num:'01',title:'Web Development',desc:'Custom high-performance websites and corporate platforms engineered for speed, SEO excellence, and conversion.',tags:['Next.js','Vue 3','Laravel']},
+    {num:'02',title:'Mobile Development',desc:'Native and cross-platform applications for iOS and Android. Seamless UX from device to cloud.',tags:['React Native','Flutter']},
+    {num:'03',title:'SaaS Platform',desc:'End-to-end SaaS architecture with multi-tenancy, subscription systems, and scalable infrastructure.',tags:['Microservices','Cloud-native']},
+    {num:'04',title:'UI/UX Engineering',desc:'Design systems and interfaces that convert. From wireframe to pixel-perfect implementation.',tags:['Figma','Design System']},
+    {num:'05',title:'Automation Systems',desc:'Business process automation that eliminates bottlenecks, reduces cost, and accelerates operations.',tags:['Workflow','Integration API']},
+    {num:'06',title:'Business Intelligence',desc:'Data pipelines, dashboards, and analytics engines that turn raw data into strategic decisions.',tags:['Analytics','Dashboard']}
+  ].map((item, i) => ({
     ...item,
     icon: iconMap[i],
     img: serviceImages[i],
@@ -71,7 +76,7 @@ onMounted(() => {
           Full-Spectrum<br /><span style="color: rgba(229,231,235,0.25);">Digital</span> Services
         </h1>
         <p class="text-lg leading-relaxed max-w-2xl mx-auto" style="color: rgba(229,231,235,0.55);">
-          {{ t.services.sub }}
+          Every solution we build is crafted with enterprise-grade standards, regardless of your company size.
         </p>
       </div>
     </section>
