@@ -23,9 +23,12 @@ const translations = {
     nav: {
       about: 'About',
       services: 'Services',
-      work: 'Work',
+      work: 'Portfolio',
       process: 'Process',
       contact: 'Contact',
+      blog: 'Blog',
+      caseStudy: 'Case Study',
+      faq: 'FAQ',
       cta: 'Get in Touch',
     },
     hero: {
@@ -255,6 +258,9 @@ const translations = {
       work: 'Portofolio',
       process: 'Proses',
       contact: 'Kontak',
+      blog: 'Blog',
+      caseStudy: 'Case Study',
+      faq: 'FAQ',
       cta: 'Hubungi Kami',
     },
     hero: {

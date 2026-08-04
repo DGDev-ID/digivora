@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight, Mail } from 'lucide-vue-next'
 import { useNeuralCanvas } from '@/composables/useNeuralCanvas'
 import { useI18n } from '@/composables/useI18n'
+import { RouterLink } from 'vue-router'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -26,9 +27,9 @@ watch(lang, async () => {
 onMounted(() => {
   if (canvasRef.value) {
     initCanvas(canvasRef.value, {
-      particleColor: 0xffffff,
-      lineColor: 0x2a2a2a,
-      bgColor: 0x000000,
+      particleColor: 0x00BFA6,
+      lineColor: 0x11201F,
+      bgColor: 0x0B1312,
       count: 130,
       linkDist: 0.2,
     })
@@ -71,21 +72,23 @@ onUnmounted(() => destroyCanvas())
 </script>
 
 <template>
-  <section id="cta" ref="sectionRef" class="py-40 md:py-56 bg-black overflow-hidden relative">
+  <section id="cta" ref="sectionRef" class="py-40 md:py-56 overflow-hidden relative" style="background-color: #0B1312;">
     <!-- Neural canvas background -->
     <canvas
       ref="canvasRef"
-      class="absolute inset-0 w-full h-full opacity-35 pointer-events-none"
+      class="absolute inset-0 w-full h-full opacity-30 pointer-events-none"
     ></canvas>
+    <!-- Teal radial glow -->
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at center, rgba(0,191,166,0.07) 0%, transparent 60%);"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6">
       <!-- Label -->
       <div class="flex items-center gap-4 mb-16 justify-center">
-        <div class="h-px w-8 bg-white/30"></div>
-        <span class="text-xs font-semibold tracking-[0.35em] uppercase text-white/30">{{
+        <div class="h-px w-8" style="background-color: rgba(0,191,166,0.35);"></div>
+        <span class="text-xs font-semibold tracking-[0.35em] uppercase" style="color: rgba(0,191,166,0.5);">{{
           t.cta.label
         }}</span>
-        <div class="h-px w-8 bg-white/30"></div>
+        <div class="h-px w-8" style="background-color: rgba(0,191,166,0.35);"></div>
       </div>
 
       <!-- Headline with word-by-word reveal -->
@@ -93,7 +96,8 @@ onUnmounted(() => destroyCanvas())
         <div class="flex flex-wrap justify-center gap-x-6">
           <div v-for="word in line1Words" :key="'l1-' + word" class="overflow-hidden">
             <span
-              class="cta-word inline-block text-[clamp(2.5rem,7vw,7rem)] font-bold leading-[0.95] tracking-tight text-white"
+              class="cta-word inline-block text-[clamp(2.5rem,7vw,7rem)] font-bold leading-[0.95] tracking-tight"
+              style="color: #E5E7EB;"
               >{{ word }}</span
             >
           </div>
@@ -101,7 +105,8 @@ onUnmounted(() => destroyCanvas())
         <div class="flex flex-wrap justify-center gap-x-6">
           <div v-for="word in line2Words" :key="'l2-' + word" class="overflow-hidden">
             <span
-              class="cta-word inline-block text-[clamp(2.5rem,7vw,7rem)] font-bold leading-[0.95] tracking-tight text-white/25"
+              class="cta-word inline-block text-[clamp(2.5rem,7vw,7rem)] font-bold leading-[0.95] tracking-tight"
+              style="color: rgba(0,191,166,0.35);"
               >{{ word }}</span
             >
           </div>
@@ -109,23 +114,26 @@ onUnmounted(() => destroyCanvas())
         <div class="flex flex-wrap justify-center gap-x-6 mb-12">
           <div v-for="word in line3Words" :key="'l3-' + word" class="overflow-hidden">
             <span
-              class="cta-word inline-block text-[clamp(2.5rem,7vw,7rem)] font-bold leading-[0.95] tracking-tight text-white"
+              class="cta-word inline-block text-[clamp(2.5rem,7vw,7rem)] font-bold leading-[0.95] tracking-tight"
+              style="color: #E5E7EB;"
               >{{ word }}</span
             >
           </div>
         </div>
 
         <p
-          class="cta-sub text-base md:text-lg text-white/50 font-light max-w-xl mx-auto leading-relaxed mb-14"
+          class="cta-sub text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed mb-14"
+          style="color: rgba(229,231,235,0.45);"
         >
           {{ t.cta.sub }}
         </p>
 
         <!-- Actions -->
         <div class="cta-actions flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href="mailto:hello@digivora.id"
-            class="group inline-flex items-center gap-3 px-10 py-5 bg-white text-black text-sm font-semibold tracking-[0.2em] uppercase hover:bg-white/90 transition-all duration-300"
+          <RouterLink
+            to="/contact"
+            class="group inline-flex items-center gap-3 px-10 py-5 text-sm font-semibold tracking-[0.2em] uppercase transition-all duration-300 hover:opacity-90"
+            style="background-color: #00BFA6; color: #0B1312;"
           >
             <Mail :size="16" />
             {{ t.cta.email }}
@@ -133,10 +141,11 @@ onUnmounted(() => destroyCanvas())
               :size="16"
               class="transition-transform duration-300 group-hover:translate-x-1"
             />
-          </a>
+          </RouterLink>
           <a
             href="mailto:hello@digivora.id"
-            class="group inline-flex items-center gap-3 px-10 py-5 border border-white/30 text-white text-sm font-semibold tracking-[0.2em] uppercase hover:border-white hover:bg-white/5 transition-all duration-300"
+            class="group inline-flex items-center gap-3 px-10 py-5 text-sm font-semibold tracking-[0.2em] uppercase transition-all duration-300 hover:bg-[#00BFA6]/10 hover:border-[#00BFA6]"
+            style="border: 1px solid rgba(0,191,166,0.3); color: #E5E7EB;"
           >
             hello@digivora.id
           </a>

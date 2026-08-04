@@ -25,7 +25,7 @@ watch(lang, async () => {
 onMounted(() => {
   if (canvasRef.value) {
     initCanvas(canvasRef.value, {
-      bgColor: 0x000000,
+      bgColor: 0x0B1312,
       count: 500,
       innerRadius: 4,
       outerRadius: 55,
@@ -105,36 +105,39 @@ onUnmounted(() => destroyCanvas())
 </script>
 
 <template>
-  <section id="process" ref="sectionRef" class="relative py-32 md:py-48 bg-black overflow-hidden">
-    <!-- Neural canvas background -->
+  <section id="process" ref="sectionRef" class="relative py-32 md:py-48 overflow-hidden" style="background-color: #0B1312;">
+    <!-- Particle canvas background -->
     <canvas ref="canvasRef" class="absolute inset-0 w-full h-full pointer-events-none opacity-50" />
+    <!-- Teal glow accent -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none" style="background: radial-gradient(circle, rgba(0,191,166,0.06) 0%, transparent 65%);"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6">
       <!-- Header -->
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
         <div>
           <div class="process-label flex items-center gap-4 mb-6">
-            <div class="h-px w-8 bg-white/40"></div>
-            <span class="text-xs font-semibold tracking-[0.35em] uppercase text-white/30">{{
+            <div class="h-px w-8" style="background-color: rgba(0,191,166,0.5);"></div>
+            <span class="text-xs font-semibold tracking-[0.35em] uppercase" style="color: rgba(0,191,166,0.5);">{{
               t.process.label
             }}</span>
           </div>
           <div class="process-heading-wrap overflow-hidden pb-2">
             <h2
-              class="text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.15] tracking-tight text-white flex flex-wrap gap-x-[0.3em]"
+              class="text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.15] tracking-tight flex flex-wrap gap-x-[0.3em]"
+              style="color: #E5E7EB;"
             >
               <span
                 v-for="w in t.process.headlineWords"
                 :key="w"
                 class="process-word inline-block"
-                :class="w === t.process.dimWord ? 'text-white/25' : ''"
+                :style="w === t.process.dimWord ? 'color: rgba(229,231,235,0.2);' : ''"
                 style="opacity: 0"
                 >{{ w }}</span
               >
             </h2>
           </div>
         </div>
-        <p class="max-w-xs text-sm text-white/40 leading-relaxed font-light md:text-right">
+        <p class="max-w-xs text-sm leading-relaxed font-light md:text-right" style="color: rgba(229,231,235,0.4);">
           {{ t.process.sub }}
         </p>
       </div>
@@ -143,8 +146,8 @@ onUnmounted(() => destroyCanvas())
       <div class="process-steps hidden lg:block">
         <div class="relative mb-12">
           <div
-            class="process-connector absolute top-1/2 left-0 right-0 h-px bg-white/15 origin-left"
-            style="transform: scaleX(0)"
+            class="process-connector absolute top-1/2 left-0 right-0 h-px origin-left"
+            style="background-color: rgba(0,191,166,0.2); transform: scaleX(0);"
           ></div>
           <div class="flex justify-between relative z-10">
             <div
@@ -154,10 +157,10 @@ onUnmounted(() => destroyCanvas())
               style="width: calc(100% / 6)"
             >
               <div
-                class="process-node w-10 h-10 border border-white/30 bg-black flex items-center justify-center"
-                style="transform: scale(0); opacity: 0"
+                class="process-node w-10 h-10 flex items-center justify-center"
+                style="border: 1px solid rgba(0,191,166,0.4); background-color: #0B1312; transform: scale(0); opacity: 0;"
               >
-                <span class="text-xs text-white/50 font-semibold tracking-wider">{{
+                <span class="text-xs font-semibold tracking-wider" style="color: rgba(0,191,166,0.7);">{{
                   step.num
                 }}</span>
               </div>
@@ -168,32 +171,34 @@ onUnmounted(() => destroyCanvas())
           <div
             v-for="step in steps"
             :key="step.num"
-            class="process-step flex-1 px-4 border-l border-white/8 first:border-l-0"
-            style="opacity: 0"
+            class="process-step flex-1 px-4"
+            style="border-left: 1px solid rgba(0,191,166,0.1); opacity: 0;"
           >
-            <h3 class="text-base font-semibold text-white mb-3">{{ step.title }}</h3>
-            <p class="text-xs text-white/40 leading-relaxed">{{ step.desc }}</p>
+            <h3 class="text-base font-semibold mb-3" style="color: #E5E7EB;">{{ step.title }}</h3>
+            <p class="text-xs leading-relaxed" style="color: rgba(229,231,235,0.38);">{{ step.desc }}</p>
           </div>
         </div>
       </div>
 
       <!-- Mobile: Vertical Steps -->
-      <div class="process-steps lg:hidden flex flex-col gap-0 border-t border-white/10">
+      <div class="process-steps lg:hidden flex flex-col gap-0" style="border-top: 1px solid rgba(0,191,166,0.12);">
         <div
           v-for="step in steps"
           :key="step.num"
-          class="process-step flex items-start gap-8 py-8 border-b border-white/10"
+          class="process-step flex items-start gap-8 py-8"
+          style="border-bottom: 1px solid rgba(0,191,166,0.12);"
         >
           <div class="shrink-0">
             <div
-              class="process-node w-10 h-10 border border-white/20 flex items-center justify-center"
+              class="process-node w-10 h-10 flex items-center justify-center"
+              style="border: 1px solid rgba(0,191,166,0.3);"
             >
-              <span class="text-xs text-white/40 font-semibold">{{ step.num }}</span>
+              <span class="text-xs font-semibold" style="color: rgba(0,191,166,0.6);">{{ step.num }}</span>
             </div>
           </div>
           <div>
-            <h3 class="text-base font-semibold text-white mb-2">{{ step.title }}</h3>
-            <p class="text-sm text-white/40 leading-relaxed">{{ step.desc }}</p>
+            <h3 class="text-base font-semibold mb-2" style="color: #E5E7EB;">{{ step.title }}</h3>
+            <p class="text-sm leading-relaxed" style="color: rgba(229,231,235,0.4);">{{ step.desc }}</p>
           </div>
         </div>
       </div>

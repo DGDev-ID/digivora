@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { Github, Twitter, Linkedin, Mail, ArrowUpRight } from 'lucide-vue-next'
+import { Github, Linkedin, Twitter, Mail, ArrowUpRight } from 'lucide-vue-next'
+import { RouterLink } from 'vue-router'
 import { useI18n } from '@/composables/useI18n'
 
 const { t } = useI18n()
-const year = new Date().getFullYear()
 
-const servicesList = [
+const services = [
   'Web Development',
   'Mobile App Solutions',
   'SaaS Platform',
@@ -15,120 +14,106 @@ const servicesList = [
   'Digital Transformation',
 ]
 
-const links = computed(() => [
-  { label: t.value.nav.about, href: '#about' },
-  { label: t.value.nav.services, href: '#services' },
-  { label: t.value.nav.work, href: '#portfolio' },
-  { label: t.value.nav.process, href: '#process' },
-  { label: t.value.nav.contact, href: '#cta' },
-])
-
-function scrollTo(id: string) {
-  const el = document.querySelector(id)
-  el?.scrollIntoView({ behavior: 'smooth' })
-}
+const navLinks = [
+  { label: 'About', to: '/about' },
+  { label: 'Services', to: '/services' },
+  { label: 'Portfolio', to: '/portfolio' },
+  { label: 'Case Study', to: '/case-study' },
+  { label: 'Blog', to: '/blog' },
+  { label: 'FAQ', to: '/faq' },
+  { label: 'Contact', to: '/contact' },
+]
 </script>
 
 <template>
-  <footer class="bg-black text-white">
-    <!-- Top band -->
-    <div class="border-b border-white/10">
-      <div class="max-w-7xl mx-auto px-6 py-20">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          <!-- Brand -->
-          <div class="lg:col-span-1">
-            <div class="flex items-center gap-3 mb-6">
-              <img src="/logo-footer.svg" alt="Digivora" class="h-10 w-auto" />
-            </div>
-            <p class="text-white/50 text-sm leading-relaxed max-w-xs">
-              {{ t.footer.tagline }}
-            </p>
-            <div class="flex items-center gap-4 mt-8">
-              <a href="#" class="text-white/40 hover:text-white transition-colors duration-300">
-                <Github :size="18" />
-              </a>
-              <a href="#" class="text-white/40 hover:text-white transition-colors duration-300">
-                <Linkedin :size="18" />
-              </a>
-              <a href="#" class="text-white/40 hover:text-white transition-colors duration-300">
-                <Twitter :size="18" />
-              </a>
-            </div>
-          </div>
+  <footer style="background-color: #0A1110; border-top: 1px solid rgba(0,191,166,0.1);">
+    <!-- Main footer content -->
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
 
-          <!-- Services -->
-          <div>
-            <h4 class="text-xs font-semibold tracking-[0.25em] uppercase text-white/40 mb-6">
-              {{ t.footer.servicesLabel }}
-            </h4>
-            <ul class="flex flex-col gap-3">
-              <li v-for="s in servicesList" :key="s">
-                <span
-                  class="text-sm text-white/60 hover:text-white transition-colors duration-300 cursor-default"
-                  >{{ s }}</span
-                >
-              </li>
-            </ul>
-          </div>
-
-          <!-- Navigation -->
-          <div>
-            <h4 class="text-xs font-semibold tracking-[0.25em] uppercase text-white/40 mb-6">
-              {{ t.footer.navLabel }}
-            </h4>
-            <ul class="flex flex-col gap-3">
-              <li v-for="link in links" :key="link.label">
-                <a
-                  :href="link.href"
-                  class="text-sm text-white/60 hover:text-white transition-colors duration-300"
-                  @click.prevent="scrollTo(link.href)"
-                >
-                  {{ link.label }}
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Contact -->
-          <div>
-            <h4 class="text-xs font-semibold tracking-[0.25em] uppercase text-white/40 mb-6">
-              {{ t.footer.contactLabel }}
-            </h4>
-            <div class="flex flex-col gap-4">
-              <a
-                href="mailto:hello@digivora.id"
-                class="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-300 group"
-              >
-                <Mail :size="14" />
-                hello@digivora.id
-                <ArrowUpRight
-                  :size="12"
-                  class="opacity-0 group-hover:opacity-100 transition-opacity"
-                />
-              </a>
-              <p class="text-sm text-white/60">Indonesia — Remote Worldwide</p>
-            </div>
-            <a
-              href="#cta"
-              class="inline-flex items-center gap-2 mt-8 text-xs font-semibold tracking-[0.2em] uppercase px-6 py-3 border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300"
-              @click.prevent="scrollTo('#cta')"
-            >
-              {{ t.cta.email }}
-              <ArrowUpRight :size="14" />
+        <!-- Brand -->
+        <div class="lg:col-span-1">
+          <RouterLink to="/" class="inline-block mb-6">
+            <img src="/logo-digivora.svg" alt="Digivora" class="h-8 w-auto" />
+          </RouterLink>
+          <p class="text-sm leading-relaxed mb-8 max-w-xs" style="color: rgba(229,231,235,0.4);">
+            {{ t.footer.tagline }}
+          </p>
+          <div class="flex gap-3">
+            <a href="#" class="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-[rgba(0,191,166,0.15)] hover:border-[#00BFA6]"
+              style="border: 1px solid rgba(0,191,166,0.15);">
+              <Github :size="15" style="color: rgba(229,231,235,0.5);" />
+            </a>
+            <a href="#" class="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-[rgba(0,191,166,0.15)] hover:border-[#00BFA6]"
+              style="border: 1px solid rgba(0,191,166,0.15);">
+              <Linkedin :size="15" style="color: rgba(229,231,235,0.5);" />
+            </a>
+            <a href="#" class="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-[rgba(0,191,166,0.15)] hover:border-[#00BFA6]"
+              style="border: 1px solid rgba(0,191,166,0.15);">
+              <Twitter :size="15" style="color: rgba(229,231,235,0.5);" />
             </a>
           </div>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <h4 class="text-xs font-bold tracking-[0.3em] uppercase mb-6" style="color: rgba(0,191,166,0.6);">{{ t.footer.servicesLabel }}</h4>
+          <ul class="flex flex-col gap-3">
+            <li v-for="svc in services" :key="svc">
+              <RouterLink to="/services" class="text-sm transition-colors duration-200 hover:text-[#00BFA6]" style="color: rgba(229,231,235,0.45);">
+                {{ svc }}
+              </RouterLink>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+          <h4 class="text-xs font-bold tracking-[0.3em] uppercase mb-6" style="color: rgba(0,191,166,0.6);">{{ t.footer.navLabel }}</h4>
+          <ul class="flex flex-col gap-3">
+            <li v-for="link in navLinks" :key="link.label">
+              <RouterLink :to="link.to" class="text-sm transition-colors duration-200 hover:text-[#00BFA6]" style="color: rgba(229,231,235,0.45);">
+                {{ link.label }}
+              </RouterLink>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-xs font-bold tracking-[0.3em] uppercase mb-6" style="color: rgba(0,191,166,0.6);">{{ t.footer.contactLabel }}</h4>
+          <div class="flex flex-col gap-4">
+            <a href="mailto:hello@digivora.id"
+              class="flex items-center gap-2 text-sm transition-colors duration-200 hover:text-[#00BFA6]"
+              style="color: rgba(229,231,235,0.45);">
+              <Mail :size="14" style="color: rgba(0,191,166,0.4);" />
+              hello@digivora.id
+            </a>
+            <p class="text-sm" style="color: rgba(229,231,235,0.45);">Indonesia — Remote Worldwide</p>
+          </div>
+
+          <RouterLink
+            to="/contact"
+            class="mt-8 inline-flex items-center gap-2 px-6 py-3 text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:bg-[#00BFA6] hover:text-[#0B1312]"
+            style="border: 1px solid rgba(0,191,166,0.3); color: rgba(229,231,235,0.7);"
+          >
+            START A PROJECT
+            <ArrowUpRight :size="12" />
+          </RouterLink>
         </div>
       </div>
     </div>
 
     <!-- Bottom bar -->
-    <div
-      class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4"
-    >
-      <p class="text-xs text-white/30 tracking-widest">
-        © {{ year }} Digivora Solution Technology. {{ t.footer.rights }}
-      </p>
-      <p class="text-xs text-white/20 tracking-widest uppercase">{{ t.footer.builtWith }}</p>
+    <div class="px-6 py-6" style="border-top: 1px solid rgba(0,191,166,0.06);">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+        <p class="text-xs" style="color: rgba(229,231,235,0.2);">
+          © 2026 Digivora Solution Technology. {{ t.footer.rights }}
+        </p>
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase" style="color: rgba(0,191,166,0.25);">
+          {{ t.footer.builtWith }}
+        </p>
+      </div>
     </div>
   </footer>
 </template>

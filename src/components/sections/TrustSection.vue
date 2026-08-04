@@ -88,32 +88,33 @@ onMounted(() => {
 </script>
 
 <template>
-  <section id="trust" ref="sectionRef" class="py-32 md:py-40 bg-white border-t border-black/8">
+  <section id="trust" ref="sectionRef" class="py-32 md:py-40" style="background-color: #11201F; border-top: 1px solid rgba(0,191,166,0.1);">
     <div class="max-w-7xl mx-auto px-6">
       <!-- Label -->
       <div class="flex items-center gap-4 mb-16">
-        <div class="h-px w-8 bg-black"></div>
-        <span class="text-xs font-semibold tracking-[0.35em] uppercase text-black/40">{{
+        <div class="h-px w-8" style="background-color: #00BFA6;"></div>
+        <span class="text-xs font-semibold tracking-[0.35em] uppercase" style="color: rgba(0,191,166,0.6);">{{
           t.trust.label
         }}</span>
       </div>
 
       <!-- Stats with count-up -->
-      <div class="trust-stats grid grid-cols-2 lg:grid-cols-4 gap-px bg-black/10">
+      <div class="trust-stats grid grid-cols-2 lg:grid-cols-4 gap-px" style="background-color: rgba(0,191,166,0.1);">
         <div
           v-for="(stat, i) in stats"
           :key="stat.label"
-          class="trust-stat bg-white p-10 flex flex-col justify-between"
-          style="opacity: 0"
+          class="trust-stat p-10 flex flex-col justify-between"
+          style="background-color: #11201F; opacity: 0;"
         >
           <div
-            class="text-[clamp(2.5rem,4vw,4rem)] font-bold text-black leading-none mb-4 tabular-nums"
+            class="text-[clamp(2.5rem,4vw,4rem)] font-bold leading-none mb-4 tabular-nums"
+            style="color: #00BFA6;"
           >
             <span :ref="(el) => setNumRef(el, i)">{{ stat.num }}{{ stat.suffix }}</span>
           </div>
           <div>
-            <div class="text-sm font-semibold text-black mb-2">{{ stat.label }}</div>
-            <div class="text-xs text-black/40 leading-relaxed">{{ stat.desc }}</div>
+            <div class="text-sm font-semibold mb-2" style="color: #E5E7EB;">{{ stat.label }}</div>
+            <div class="text-xs leading-relaxed" style="color: rgba(229,231,235,0.38);">{{ stat.desc }}</div>
           </div>
         </div>
       </div>
@@ -121,7 +122,8 @@ onMounted(() => {
       <!-- Industry tags -->
       <div class="trust-industries mt-20">
         <div
-          class="text-xs font-semibold tracking-[0.35em] uppercase text-black/30 mb-8 text-center"
+          class="text-xs font-semibold tracking-[0.35em] uppercase mb-8 text-center"
+          style="color: rgba(0,191,166,0.4);"
         >
           {{ t.trust.industriesLabel }}
         </div>
@@ -129,8 +131,8 @@ onMounted(() => {
           <span
             v-for="ind in t.trust.industries"
             :key="ind"
-            class="trust-ind text-xs font-medium tracking-widest uppercase px-5 py-2.5 border border-black/15 text-black/60 hover:border-black hover:text-black transition-all duration-300 cursor-default"
-            style="opacity: 0"
+            class="trust-ind text-xs font-medium tracking-widest uppercase px-5 py-2.5 cursor-default transition-all duration-300 hover:text-[#00BFA6] hover:border-[#00BFA6]"
+            style="border: 1px solid rgba(0,191,166,0.2); color: rgba(229,231,235,0.55); opacity: 0;"
           >
             {{ ind }}
           </span>
@@ -138,15 +140,16 @@ onMounted(() => {
       </div>
 
       <!-- Quote -->
-      <div class="trust-quote mt-24 border-t border-black/8 pt-16 text-center" style="opacity: 0">
+      <div class="trust-quote mt-24 pt-16 text-center" style="border-top: 1px solid rgba(0,191,166,0.1); opacity: 0;">
         <p
-          class="text-[clamp(1.5rem,3vw,2.5rem)] font-light text-black/40 leading-relaxed max-w-4xl mx-auto italic"
+          class="text-[clamp(1.5rem,3vw,2.5rem)] font-light leading-relaxed max-w-4xl mx-auto italic"
+          style="color: rgba(229,231,235,0.35);"
         >
           <template v-for="(line, i) in t.trust.quote.split('\n')" :key="i">
             {{ line }}<br v-if="i < t.trust.quote.split('\n').length - 1" />
           </template>
         </p>
-        <div class="mt-6 text-xs text-black/25 tracking-widest uppercase">
+        <div class="mt-6 text-xs tracking-widest uppercase" style="color: rgba(0,191,166,0.3);">
           {{ t.trust.quoteAttr }}
         </div>
       </div>

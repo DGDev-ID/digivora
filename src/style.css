@@ -2,12 +2,16 @@
 
 @theme {
   --font-sans: 'Space Grotesk', system-ui, sans-serif;
-  --color-brand: #000000;
-  --color-surface: #ffffff;
-  --color-muted: #6b6b6b;
-  --color-subtle: #f5f5f5;
-  --color-border: #e0e0e0;
-  --color-dark: #0a0a0a;
+  /* ── Teal/Dark Palette ── */
+  --color-brand: #00BFA6;
+  --color-brand-alt: #26C6B7;
+  --color-surface: #0B1312;
+  --color-surface-alt: #11201F;
+  --color-light: #E5E7EB;
+  --color-muted: #9CA3AF;
+  --color-subtle: #11201F;
+  --color-border: #1e3532;
+  --color-dark: #0B1312;
 }
 
 *,
@@ -18,8 +22,8 @@
 
 html {
   font-family: 'Space Grotesk', sans-serif;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #0B1312;
+  color: #E5E7EB;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: auto;
@@ -27,7 +31,7 @@ html {
 
 body {
   overflow-x: hidden;
-  background-color: #ffffff;
+  background-color: #0B1312;
   margin: 0;
   padding: 0;
 }
@@ -46,10 +50,10 @@ html.lenis body {
   width: 3px;
 }
 ::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: #0B1312;
 }
 ::-webkit-scrollbar-thumb {
-  background: #000000;
+  background: #00BFA6;
 }
 
 /* GSAP initial hidden states */

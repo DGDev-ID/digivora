@@ -13,12 +13,12 @@ const canvasRef = ref<HTMLCanvasElement | null>(null)
 const { init: initCanvas, destroy: destroyCanvas } = useNeuralCanvas()
 
 onMounted(() => {
-  // Subtle neural canvas background (light theme — dark dots on white)
+  // Neural canvas background (dark teal theme)
   if (canvasRef.value) {
     initCanvas(canvasRef.value, {
-      particleColor: 0x000000,
-      lineColor: 0x000000,
-      bgColor: 0xffffff,
+      particleColor: 0x00BFA6,
+      lineColor: 0x00BFA6,
+      bgColor: 0x0B1312,
       count: 80,
       linkDist: 0.22,
     })
@@ -92,7 +92,6 @@ onMounted(() => {
 onUnmounted(() => destroyCanvas())
 
 // When language switches, force all animated elements to their final visible state
-// (GSAP ScrollTrigger won't re-run, so we must manually reveal them)
 watch(lang, async () => {
   await nextTick()
   if (!sectionRef.value) return
@@ -108,19 +107,20 @@ const headlineWords = computed(() => t.value.about.headlineWords)
   <section
     id="about"
     ref="sectionRef"
-    class="relative py-32 md:py-48 bg-white border-b border-black/8 overflow-hidden"
+    class="relative py-32 md:py-48 overflow-hidden"
+    style="background-color: #0B1312; border-bottom: 1px solid rgba(0,191,166,0.1);"
   >
     <!-- Neural canvas background — very subtle -->
     <canvas
       ref="canvasRef"
-      class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.04]"
+      class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.06]"
     />
 
     <div class="relative z-10 max-w-7xl mx-auto px-6">
       <!-- Label -->
       <div class="about-label flex items-center gap-4 mb-16">
-        <div class="h-px w-8 bg-black"></div>
-        <span class="text-xs font-semibold tracking-[0.35em] uppercase text-black/40">{{
+        <div class="h-px w-8" style="background-color: #00BFA6;"></div>
+        <span class="text-xs font-semibold tracking-[0.35em] uppercase" style="color: rgba(0,191,166,0.6);">{{
           t.about.label
         }}</span>
       </div>
@@ -130,13 +130,14 @@ const headlineWords = computed(() => t.value.about.headlineWords)
         <div>
           <div class="about-headline-wrap pb-2">
             <h2
-              class="text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.15] tracking-tight text-black flex flex-wrap gap-x-[0.3em] gap-y-1"
+              class="text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.15] tracking-tight flex flex-wrap gap-x-[0.3em] gap-y-1"
+              style="color: #E5E7EB;"
             >
               <span
                 v-for="word in headlineWords"
                 :key="word"
                 class="about-word inline-block overflow-hidden"
-                :class="t.about.dimWords.includes(word) ? 'text-black/30' : ''"
+                :style="t.about.dimWords.includes(word) ? 'color: rgba(229,231,235,0.25);' : ''"
                 style="transform: translateY(110%); opacity: 0"
                 >{{ word }}</span
               >
@@ -144,20 +145,20 @@ const headlineWords = computed(() => t.value.about.headlineWords)
           </div>
           <!-- Animated expanding line -->
           <div
-            class="about-line mt-10 h-px w-full bg-black origin-left"
-            style="transform: scaleX(0)"
+            class="about-line mt-10 h-px w-full origin-left"
+            style="background-color: rgba(0,191,166,0.3); transform: scaleX(0);"
           ></div>
         </div>
 
         <!-- Right: Body copy -->
         <div class="flex flex-col gap-6 pt-4">
-          <p class="about-body text-lg text-black/70 leading-relaxed font-light">
+          <p class="about-body text-lg leading-relaxed font-light" style="color: rgba(229,231,235,0.7);">
             {{ t.about.p1 }}
           </p>
-          <p class="about-body text-base text-black/50 leading-relaxed font-light">
+          <p class="about-body text-base leading-relaxed font-light" style="color: rgba(229,231,235,0.5);">
             {{ t.about.p2 }}
           </p>
-          <p class="about-body text-base text-black/50 leading-relaxed font-light">
+          <p class="about-body text-base leading-relaxed font-light" style="color: rgba(229,231,235,0.5);">
             {{ t.about.p3 }}
           </p>
         </div>
@@ -165,26 +166,32 @@ const headlineWords = computed(() => t.value.about.headlineWords)
 
       <!-- Values Grid -->
       <div
-        class="about-values-grid mt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border-t border-l border-black/8"
+        class="about-values-grid mt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0"
+        style="border-top: 1px solid rgba(0,191,166,0.1); border-left: 1px solid rgba(0,191,166,0.1);"
       >
         <div
           v-for="val in values"
           :key="val.num"
-          class="about-value border-r border-b border-black/8 p-8 group hover:bg-black hover:text-white transition-colors duration-500 cursor-default"
-          style="opacity: 0"
+          class="about-value p-8 cursor-default transition-colors duration-500"
+          style="border-right: 1px solid rgba(0,191,166,0.1); border-bottom: 1px solid rgba(0,191,166,0.1); opacity: 0; background-color: transparent;"
+          @mouseover="($event.currentTarget as HTMLElement).style.backgroundColor = '#11201F'"
+          @mouseout="($event.currentTarget as HTMLElement).style.backgroundColor = 'transparent'"
         >
           <div
-            class="text-xs font-semibold tracking-[0.3em] uppercase text-black/30 group-hover:text-white/30 mb-6 transition-colors duration-500"
+            class="text-xs font-semibold tracking-[0.3em] uppercase mb-6 transition-colors duration-500"
+            style="color: rgba(0,191,166,0.4);"
           >
             {{ val.num }}
           </div>
           <h3
-            class="text-base font-semibold text-black group-hover:text-white mb-3 transition-colors duration-500"
+            class="text-base font-semibold mb-3 transition-colors duration-500"
+            style="color: #E5E7EB;"
           >
             {{ val.label }}
           </h3>
           <p
-            class="text-sm text-black/50 group-hover:text-white/50 leading-relaxed transition-colors duration-500"
+            class="text-sm leading-relaxed transition-colors duration-500"
+            style="color: rgba(229,231,235,0.45);"
           >
             {{ val.desc }}
           </p>

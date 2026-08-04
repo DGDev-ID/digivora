@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
 import { Menu, X } from 'lucide-vue-next'
 import { useI18n } from '@/composables/useI18n'
 
 const { lang, t, toggleLang } = useI18n()
+const route = useRoute()
 
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
@@ -16,21 +18,17 @@ function onScroll() {
   isScrolled.value = window.scrollY > 40
 }
 
-function scrollTo(id: string) {
-  isMenuOpen.value = false
-  const el = document.querySelector(id)
-  el?.scrollIntoView({ behavior: 'smooth' })
-}
-
 onMounted(() => window.addEventListener('scroll', onScroll))
 onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
 const navItems = computed(() => [
-  { label: t.value.nav.about, href: '#about' },
-  { label: t.value.nav.services, href: '#services' },
-  { label: t.value.nav.work, href: '#portfolio' },
-  { label: t.value.nav.process, href: '#process' },
-  { label: t.value.nav.contact, href: '#cta' },
+  { label: 'Home', to: '/' },
+  { label: t.value.nav.about, to: '/about' },
+  { label: t.value.nav.services, to: '/services' },
+  { label: t.value.nav.work, to: '/portfolio' },
+  { label: t.value.nav.caseStudy, to: '/case-study' },
+  { label: t.value.nav.blog, to: '/blog' },
+  { label: t.value.nav.faq, to: '/faq' },
 ])
 </script>
 
@@ -38,81 +36,72 @@ const navItems = computed(() => [
   <header
     :class="[
       'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
-      isScrolled
-        ? 'bg-white/95 backdrop-blur-md border-b border-black/8 py-3'
-        : 'bg-transparent py-6',
+      isScrolled ? 'py-3' : 'bg-transparent py-5',
     ]"
+    :style="isScrolled ? 'background-color: rgba(11,19,18,0.97); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(0,191,166,0.12);' : ''"
   >
     <nav class="max-w-7xl mx-auto px-6 flex items-center justify-between">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-3 group" @click.prevent="scrollTo('#hero')">
+      <RouterLink to="/" class="flex items-center gap-3 group">
         <img
-          src="/logo-navbar.svg"
+          src="/logo-digivora.svg"
           alt="Digivora"
-          class="h-8 w-auto"
-          :class="isScrolled ? 'brightness-0' : 'brightness-100'"
+          class="h-8 w-auto transition-all duration-300"
+          :style="isScrolled ? 'filter: brightness(0) saturate(100%) invert(62%) sepia(98%) saturate(399%) hue-rotate(127deg) brightness(97%) contrast(101%)' : ''"
         />
-      </a>
+      </RouterLink>
 
       <!-- Desktop Nav -->
-      <ul class="hidden md:flex items-center gap-10">
+      <ul class="hidden lg:flex items-center gap-1">
         <li v-for="item in navItems" :key="item.label">
-          <a
-            :href="item.href"
-            class="text-sm font-medium tracking-widest uppercase text-black/60 hover:text-black transition-colors duration-300 relative group"
-            @click.prevent="scrollTo(item.href)"
+          <RouterLink
+            :to="item.to"
+            class="text-xs font-semibold tracking-[0.15em] uppercase px-4 py-2 rounded-lg transition-all duration-300 relative group"
+            :class="[
+              route.path === item.to
+                ? 'text-[#00BFA6]'
+                : 'text-[rgba(229,231,235,0.6)] hover:text-[#00BFA6] hover:bg-[rgba(0,191,166,0.08)]'
+            ]"
           >
             {{ item.label }}
             <span
-              class="absolute -bottom-0.5 left-0 w-0 h-px bg-black transition-all duration-300 group-hover:w-full"
+              v-if="route.path === item.to"
+              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-[#00BFA6] rounded-full"
             ></span>
-          </a>
+          </RouterLink>
         </li>
       </ul>
 
       <!-- CTA + Language Toggle -->
-      <div class="hidden md:flex items-center gap-3">
-        <!-- Language Toggle -->
+      <div class="hidden lg:flex items-center gap-3">
         <button
           @click="toggleLang"
-          class="flex items-center gap-1.5 text-xs font-semibold tracking-[0.15em] uppercase px-3 py-2 border transition-all duration-300"
-          :class="
-            isScrolled
-              ? 'border-black/20 text-black/50 hover:border-black hover:text-black'
-              : 'border-white/30 text-white/60 hover:border-white hover:text-white'
-          "
+          class="flex items-center gap-1.5 text-xs font-semibold tracking-[0.15em] uppercase px-3 py-2 border transition-all duration-300 border-[#E5E7EB]/20 text-[#E5E7EB]/50 hover:border-[#00BFA6] hover:text-[#00BFA6]"
           :title="lang === 'en' ? 'Switch to Bahasa Indonesia' : 'Switch to English'"
         >
           <span class="text-[10px]">{{ lang === 'en' ? '🇮🇩' : '🇺🇸' }}</span>
           <span>{{ lang === 'en' ? 'ID' : 'EN' }}</span>
         </button>
 
-        <a
-          href="#cta"
-          class="text-xs font-semibold tracking-[0.2em] uppercase px-6 py-2.5 border transition-all duration-300"
-          :class="
-            isScrolled
-              ? 'border-black text-black hover:bg-black hover:text-white'
-              : 'border-white/60 text-white hover:bg-white hover:text-black'
-          "
-          @click.prevent="scrollTo('#cta')"
+        <RouterLink
+          to="/contact"
+          class="text-xs font-semibold tracking-[0.2em] uppercase px-6 py-2.5 transition-all duration-300 hover:opacity-90"
+          style="background-color: #00BFA6; color: #0B1312;"
         >
           {{ t.nav.cta }}
-        </a>
+        </RouterLink>
       </div>
 
-      <!-- Mobile right: language + hamburger -->
-      <div class="md:hidden flex items-center gap-2">
+      <!-- Mobile right -->
+      <div class="lg:hidden flex items-center gap-2">
         <button
           @click="toggleLang"
-          class="flex items-center gap-1 text-[10px] font-bold tracking-widest uppercase px-2.5 py-1.5 border border-white/30 text-white/70 hover:border-white hover:text-white transition-all duration-300"
-          :class="isScrolled ? 'border-black/20 text-black/50' : 'border-white/30 text-white/70'"
+          class="flex items-center gap-1 text-[10px] font-bold tracking-widest uppercase px-2.5 py-1.5 border transition-all duration-300 border-[#E5E7EB]/20 text-[#E5E7EB]/50"
         >
           <span>{{ lang === 'en' ? '🇮🇩 ID' : '🇺🇸 EN' }}</span>
         </button>
         <button
-          class="p-2"
-          :class="isScrolled ? 'text-black' : 'text-white'"
+          class="p-2 text-[#E5E7EB]"
           @click="toggleMenu"
           :aria-label="isMenuOpen ? 'Close menu' : 'Open menu'"
         >
@@ -133,27 +122,30 @@ const navItems = computed(() => [
     >
       <div
         v-if="isMenuOpen"
-        class="md:hidden absolute top-full left-0 right-0 bg-white border-b border-black/10 px-6 py-8"
+        class="lg:hidden absolute top-full left-0 right-0 px-6 py-8 max-h-[80vh] overflow-y-auto"
+        style="background-color: #0B1312; border-bottom: 1px solid rgba(0,191,166,0.15);"
       >
-        <ul class="flex flex-col gap-6">
+        <ul class="flex flex-col gap-2">
           <li v-for="item in navItems" :key="item.label">
-            <a
-              :href="item.href"
-              class="text-2xl font-light tracking-widest uppercase text-black hover:text-black/50 transition-colors"
-              @click.prevent="scrollTo(item.href)"
+            <RouterLink
+              :to="item.to"
+              class="block text-xl font-light tracking-widest uppercase py-3 transition-colors"
+              :class="route.path === item.to ? 'text-[#00BFA6]' : 'text-[#E5E7EB] hover:text-[#00BFA6]'"
+              @click="isMenuOpen = false"
             >
               {{ item.label }}
-            </a>
+            </RouterLink>
           </li>
         </ul>
-        <div class="mt-8 pt-8 border-t border-black/10">
-          <a
-            href="#cta"
-            class="inline-block text-sm font-semibold tracking-[0.2em] uppercase px-8 py-3 bg-black text-white"
-            @click.prevent="scrollTo('#cta')"
+        <div class="mt-8 pt-8" style="border-top: 1px solid rgba(0,191,166,0.15);">
+          <RouterLink
+            to="/contact"
+            class="inline-block text-sm font-semibold tracking-[0.2em] uppercase px-8 py-3 hover:opacity-90 transition-opacity"
+            style="background-color: #00BFA6; color: #0B1312;"
+            @click="isMenuOpen = false"
           >
             {{ t.nav.cta }}
-          </a>
+          </RouterLink>
         </div>
       </div>
     </Transition>
