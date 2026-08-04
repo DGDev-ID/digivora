@@ -11,13 +11,15 @@ import CtaSection from '@/components/sections/CtaSection.vue'
 </script>
 
 <template>
-  <HeroSection />
-  <TechMarquee />
-  <AboutSection />
-  <ServicesSection />
-  <PortfolioSection />
-  <WhySection />
-  <ProcessSection />
-  <TrustSection />
-  <CtaSection />
+  <div class="home-wrapper">
+    <HeroSection />
+    <TechMarquee />
+    <AboutSection />
+    <ServicesSection />
+    <PortfolioSection />
+    <WhySection />
+    <ProcessSection />
+    <TrustSection />
+    <CtaSection />
+  </div>
 </template>
