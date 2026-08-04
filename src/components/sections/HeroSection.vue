@@ -182,30 +182,6 @@ onUnmounted(() => {
           />
         </RouterLink>
       </div>
-
-      <!-- Divider + Stats -->
-      <div
-        class="mt-16 pt-10 flex flex-wrap justify-center gap-12 sm:gap-20 w-full max-w-3xl mx-auto hero-divider"
-        style="border-top: 1px solid rgba(0, 191, 166, 0.1)"
-      >
-        <div
-          v-for="stat in [
-            { value: '20+', label: 'Projects Delivered' },
-            { value: '10+', label: 'Industries' },
-            { value: '99%', label: 'Satisfaction' },
-          ]"
-          :key="stat.label"
-          class="hero-eyebrow"
-        >
-          <div class="text-3xl font-bold" style="color: #e5e7eb">{{ stat.value }}</div>
-          <div
-            class="text-[10px] tracking-widest uppercase mt-2"
-            style="color: rgba(0, 191, 166, 0.6)"
-          >
-            {{ stat.label }}
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Scroll indicator -->

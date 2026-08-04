@@ -35,6 +35,7 @@ export function useDotWave() {
   let particles: THREE.Points | null = null
   let positions: Float32Array | null = null
   let baseY: Float32Array | null = null
+  let floatingObjects: { mesh: THREE.Mesh; speed: number; rotX: number; rotY: number; startY: number }[] = []
   let animId = 0
   let startTime = 0
   let opts = { ...defaults }
@@ -131,6 +132,45 @@ export function useDotWave() {
     glowPlane.position.y = -1.5
     scene.add(glowPlane)
 
+    // Add floating 3D tech objects (wireframes)
+    const geometries = [
+      new THREE.IcosahedronGeometry(0.3, 0),
+      new THREE.TetrahedronGeometry(0.4, 0),
+      new THREE.OctahedronGeometry(0.35, 0),
+      new THREE.TorusGeometry(0.25, 0.08, 4, 16),
+    ]
+    const wireMat = new THREE.MeshBasicMaterial({
+      color: 0x00BFA6,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.3,
+      blending: THREE.AdditiveBlending,
+    })
+
+    floatingObjects = []
+    for (let i = 0; i < 15; i++) {
+      const geo = geometries[Math.floor(Math.random() * geometries.length)]
+      const mesh = new THREE.Mesh(geo, wireMat)
+      
+      // Random positions spread around the scene
+      mesh.position.x = (Math.random() - 0.5) * 30
+      mesh.position.z = (Math.random() - 0.5) * 15
+      const startY = (Math.random() - 0.5) * 10
+      mesh.position.y = startY
+      
+      mesh.rotation.x = Math.random() * Math.PI
+      mesh.rotation.y = Math.random() * Math.PI
+
+      scene.add(mesh)
+      floatingObjects.push({
+        mesh,
+        speed: 0.2 + Math.random() * 0.4,
+        rotX: (Math.random() - 0.5) * 0.02,
+        rotY: (Math.random() - 0.5) * 0.02,
+        startY
+      })
+    }
+
     startTime = performance.now()
     window.addEventListener('resize', onResize)
     animate()
@@ -164,6 +204,21 @@ export function useDotWave() {
     if (particles.geometry.attributes.position) {
       ;(particles.geometry.attributes.position as THREE.BufferAttribute).needsUpdate = true
     }
+
+    // Animate floating objects
+    floatingObjects.forEach((obj, idx) => {
+      obj.mesh.rotation.x += obj.rotX
+      obj.mesh.rotation.y += obj.rotY
+      // Float up slowly and wrap around
+      obj.mesh.position.y += obj.speed * 0.02
+      // Add a slight horizontal sway
+      obj.mesh.position.x += Math.sin(elapsed * 0.5 + idx) * 0.01
+
+      if (obj.mesh.position.y > 8) {
+        obj.mesh.position.y = -8
+      }
+    })
+
     renderer.render(scene, camera)
   }
 
@@ -184,6 +239,14 @@ export function useDotWave() {
       particles.geometry.dispose()
       ;(particles.material as THREE.Material).dispose()
     }
+    
+    floatingObjects.forEach(obj => {
+      obj.mesh.geometry.dispose()
+      ;(obj.mesh.material as THREE.Material).dispose()
+      scene?.remove(obj.mesh)
+    })
+    floatingObjects = []
+
     if (renderer) {
       renderer.dispose()
     }
