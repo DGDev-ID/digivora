@@ -208,7 +208,7 @@ onUnmounted(() => ctx?.revert())
     </div>
 
     <!-- Float Object 1: Diamond (top-right) -->
-    <div class="why-float-1 absolute right-[8%] top-[6%] pointer-events-none select-none opacity-[0.09] z-0">
+    <div class="why-float-1 hidden lg:block absolute right-[8%] top-[6%] pointer-events-none select-none opacity-[0.09] z-0">
       <svg width="110" height="110" viewBox="0 0 110 110" fill="none">
         <polygon points="55,5 105,55 55,105 5,55" stroke="#00BFA6" stroke-width="1.2" stroke-dasharray="5 5"/>
         <polygon points="55,22 88,55 55,88 22,55" stroke="#00BFA6" stroke-width="0.7"/>
@@ -217,7 +217,7 @@ onUnmounted(() => ctx?.revert())
     </div>
 
     <!-- Float Object 2: Cross (bottom-left area) -->
-    <div class="why-float-2 absolute left-[30%] bottom-[10%] pointer-events-none select-none opacity-[0.09] z-0">
+    <div class="why-float-2 hidden lg:block absolute left-[30%] bottom-[10%] pointer-events-none select-none opacity-[0.09] z-0">
       <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
         <line x1="35" y1="0" x2="35" y2="70" stroke="#00BFA6" stroke-width="1.5"/>
         <line x1="0" y1="35" x2="70" y2="35" stroke="#00BFA6" stroke-width="1.5"/>
@@ -226,7 +226,7 @@ onUnmounted(() => ctx?.revert())
     </div>
 
     <!-- Float Object 3: Hexagon (right, center) -->
-    <div class="why-float-3 absolute right-[3%] top-[45%] pointer-events-none select-none opacity-[0.08] z-0">
+    <div class="why-float-3 hidden lg:block absolute right-[3%] top-[45%] pointer-events-none select-none opacity-[0.08] z-0">
       <svg width="140" height="140" viewBox="0 0 140 140" fill="none">
         <polygon points="70,8 128,41 128,99 70,132 12,99 12,41" stroke="#00BFA6" stroke-width="1"/>
         <polygon points="70,28 108,51 108,89 70,112 32,89 32,51" stroke="#00BFA6" stroke-width="0.5"/>
@@ -235,7 +235,7 @@ onUnmounted(() => ctx?.revert())
     </div>
 
     <!-- Float Object 4: Dot grid (top-center) -->
-    <div class="why-float-4 absolute left-1/2 top-[3%] -translate-x-1/2 pointer-events-none select-none opacity-[0.06] z-0">
+    <div class="why-float-4 hidden lg:block absolute left-1/2 top-[3%] -translate-x-1/2 pointer-events-none select-none opacity-[0.06] z-0">
       <svg width="180" height="60" viewBox="0 0 180 60" fill="none">
         <g fill="#00BFA6">
           <circle cx="20" cy="20" r="2.5"/><circle cx="50" cy="20" r="2.5"/><circle cx="80" cy="20" r="2.5"/>
@@ -247,7 +247,7 @@ onUnmounted(() => ctx?.revert())
     </div>
 
     <!-- Float Object 5: Triangle (bottom-right) -->
-    <div class="why-float-5 absolute right-[18%] bottom-[8%] pointer-events-none select-none opacity-[0.09] z-0">
+    <div class="why-float-5 hidden lg:block absolute right-[18%] bottom-[8%] pointer-events-none select-none opacity-[0.09] z-0">
       <svg width="90" height="78" viewBox="0 0 90 78" fill="none">
         <polygon points="45,4 86,74 4,74" stroke="#26C6B7" stroke-width="1.2" stroke-dasharray="4 6"/>
         <polygon points="45,20 70,64 20,64" stroke="#00BFA6" stroke-width="0.6"/>

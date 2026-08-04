@@ -216,7 +216,7 @@ onUnmounted(() => ctx?.revert())
     </div>
 
     <!-- Object 1: Large spinning ring (top-right) -->
-    <div class="float-obj-1 absolute right-[5%] top-[8%] w-[280px] h-[280px] pointer-events-none select-none opacity-[0.08] z-0">
+    <div class="float-obj-1 hidden lg:block absolute right-[5%] top-[8%] w-[280px] h-[280px] pointer-events-none select-none opacity-[0.08] z-0">
       <svg viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="140" cy="140" r="130" stroke="#00BFA6" stroke-width="1" stroke-dasharray="8 16"/>
         <circle cx="140" cy="140" r="100" stroke="#00BFA6" stroke-width="0.6" stroke-dasharray="4 8"/>
@@ -231,7 +231,7 @@ onUnmounted(() => ctx?.revert())
     </div>
 
     <!-- Object 2: Hexagonal grid (left, mid) -->
-    <div class="float-obj-2 absolute left-[2%] top-[35%] w-[220px] h-[220px] pointer-events-none select-none opacity-[0.06] z-0">
+    <div class="float-obj-2 hidden lg:block absolute left-[2%] top-[35%] w-[220px] h-[220px] pointer-events-none select-none opacity-[0.06] z-0">
       <svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
         <polygon points="110,10 200,60 200,160 110,210 20,160 20,60" stroke="#00BFA6" stroke-width="1"/>
         <polygon points="110,35 180,73 180,148 110,185 40,148 40,73" stroke="#00BFA6" stroke-width="0.7"/>
@@ -242,7 +242,7 @@ onUnmounted(() => ctx?.revert())
     </div>
 
     <!-- Object 3: Floating cross/plus (top-left) -->
-    <div class="float-obj-3 absolute left-[15%] top-[5%] pointer-events-none select-none opacity-[0.08] z-0">
+    <div class="float-obj-3 hidden lg:block absolute left-[15%] top-[5%] pointer-events-none select-none opacity-[0.08] z-0">
       <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
         <line x1="30" y1="0" x2="30" y2="60" stroke="#00BFA6" stroke-width="1.5"/>
         <line x1="0" y1="30" x2="60" y2="30" stroke="#00BFA6" stroke-width="1.5"/>
@@ -251,7 +251,7 @@ onUnmounted(() => ctx?.revert())
     </div>
 
     <!-- Object 4: Diamond shape (right, bottom) -->
-    <div class="float-obj-4 absolute right-[10%] bottom-[15%] pointer-events-none select-none opacity-[0.08] z-0">
+    <div class="float-obj-4 hidden lg:block absolute right-[10%] bottom-[15%] pointer-events-none select-none opacity-[0.08] z-0">
       <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <polygon points="50,5 95,50 50,95 5,50" stroke="#26C6B7" stroke-width="1" stroke-dasharray="4 4"/>
         <polygon points="50,20 80,50 50,80 20,50" stroke="#00BFA6" stroke-width="0.6"/>
@@ -260,7 +260,7 @@ onUnmounted(() => ctx?.revert())
     </div>
 
     <!-- Object 5: Dotted grid (right, center) -->
-    <div class="float-obj-5 absolute right-[2%] top-[50%] pointer-events-none select-none opacity-[0.07] z-0">
+    <div class="float-obj-5 hidden lg:block absolute right-[2%] top-[50%] pointer-events-none select-none opacity-[0.07] z-0">
       <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g fill="#00BFA6">
           <circle cx="20" cy="20" r="2"/><circle cx="50" cy="20" r="2"/><circle cx="80" cy="20" r="2"/><circle cx="110" cy="20" r="2"/><circle cx="140" cy="20" r="2"/>
@@ -273,7 +273,7 @@ onUnmounted(() => ctx?.revert())
     </div>
 
     <!-- Object 6: Small floating triangles (scattered) -->
-    <div class="float-obj-6 absolute left-[45%] top-[10%] pointer-events-none select-none opacity-[0.09] z-0">
+    <div class="float-obj-6 hidden lg:block absolute left-[45%] top-[10%] pointer-events-none select-none opacity-[0.09] z-0">
       <svg width="80" height="70" viewBox="0 0 80 70" fill="none" xmlns="http://www.w3.org/2000/svg">
         <polygon points="40,5 75,65 5,65" stroke="#00BFA6" stroke-width="1" stroke-dasharray="3 5"/>
         <polygon points="40,18 62,55 18,55" stroke="#00BFA6" stroke-width="0.5"/>
