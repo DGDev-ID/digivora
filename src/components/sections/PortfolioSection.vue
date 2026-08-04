@@ -57,16 +57,6 @@ const projects = computed(() => [
   },
   {
     id: '04',
-    title: 'Arletta Cozy',
-    category: 'Kost Platform',
-    tech: 'Vue 3 · Inertia · Laravel Monolith',
-    year: '2026',
-    size: 'large',
-    url: 'https://kost.arlettaluxury.com/',
-    imgPosition: '0% 60%', // hero sedikit ke bawah agar tidak terpotong navbar
-  },
-  {
-    id: '05',
     title: 'Aksara Media Promosi',
     category: 'Media & Promotions',
     tech: 'Vue 3 · Inertia · Laravel Monolith',
@@ -74,16 +64,6 @@ const projects = computed(() => [
     size: 'large',
     url: 'https://aksaramediapromosi.vercel.app/',
     imgPosition: '50% 25%', // tunjukkan hero, hindari footer floating
-  },
-  {
-    id: '06',
-    title: 'Joyze Digital Agency',
-    category: 'Agency',
-    tech: 'Nuxt · Laravel',
-    year: '2025',
-    size: 'small',
-    url: 'https://joyze.my.id/',
-    imgPosition: '0% 25%', // hero joyze
   },
 ])
 
@@ -139,36 +119,50 @@ onMounted(() => {
 </script>
 
 <template>
-  <section id="portfolio" ref="sectionRef" class="py-32 md:py-48" style="background-color: #11201F;">
+  <section id="portfolio" ref="sectionRef" class="py-32 md:py-48" style="background-color: #11201f">
     <div class="max-w-7xl mx-auto px-6">
       <!-- Header -->
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
         <div>
           <div class="port-label flex items-center gap-4 mb-6">
-            <div class="h-px w-8" style="background-color: #00BFA6;"></div>
-            <span class="text-xs font-semibold tracking-[0.35em] uppercase" style="color: rgba(0,191,166,0.6);">Selected Works</span>
+            <div class="h-px w-8" style="background-color: #00bfa6"></div>
+            <span
+              class="text-xs font-semibold tracking-[0.35em] uppercase"
+              style="color: rgba(0, 191, 166, 0.6)"
+              >Selected Works</span
+            >
           </div>
           <h2
             class="port-heading text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.05] tracking-tight"
-            style="color: #E5E7EB;"
+            style="color: #e5e7eb"
           >
             Work We<br />
             Won't Stop<br />
-            <span style="color: rgba(229,231,235,0.25);">Being Proud Of.</span>
+            <span style="color: rgba(229, 231, 235, 0.25)">Being Proud Of.</span>
           </h2>
         </div>
         <div class="flex flex-col gap-4 md:items-end">
-          <p class="max-w-xs text-base leading-relaxed font-light md:text-right" style="color: rgba(229,231,235,0.45);">
+          <p
+            class="max-w-xs text-base leading-relaxed font-light md:text-right"
+            style="color: rgba(229, 231, 235, 0.45)"
+          >
             A curated look at transformative digital work across multiple industries.
           </p>
-          <RouterLink to="/portfolio" class="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase transition-colors duration-300 hover:text-[#26C6B7]" style="color: #00BFA6;">
+          <RouterLink
+            to="/portfolio"
+            class="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase transition-colors duration-300 hover:text-[#26C6B7]"
+            style="color: #00bfa6"
+          >
             View All Portfolio <ArrowUpRight :size="14" />
           </RouterLink>
         </div>
       </div>
 
       <!-- Grid -->
-      <div class="port-grid grid grid-cols-1 md:grid-cols-3 gap-px" style="background-color: rgba(0,191,166,0.1);">
+      <div
+        class="port-grid grid grid-cols-1 md:grid-cols-3 gap-px"
+        style="background-color: rgba(0, 191, 166, 0.1)"
+      >
         <div
           v-for="project in projects"
           :key="project.id"
@@ -176,7 +170,7 @@ onMounted(() => {
             project.size === 'large' ? 'md:col-span-2' : 'md:col-span-1',
             'port-card group relative overflow-hidden',
           ]"
-          style="background-color: #0B1312;"
+          style="background-color: #0b1312"
         >
           <a :href="project.url" target="_blank" rel="noopener noreferrer" class="block">
             <!-- Image area -->
@@ -225,35 +219,47 @@ onMounted(() => {
               <!-- Hover overlay — di luar zoom wrapper -->
               <div
                 class="absolute inset-0 transition-all duration-500 flex items-center justify-center"
-                style="background-color: transparent;"
-                @mouseover="($event.currentTarget as HTMLElement).style.backgroundColor = 'rgba(0,191,166,0.15)'"
-                @mouseout="($event.currentTarget as HTMLElement).style.backgroundColor = 'transparent'"
+                style="background-color: transparent"
+                @mouseover="
+                  ($event.currentTarget as HTMLElement).style.backgroundColor =
+                    'rgba(0,191,166,0.15)'
+                "
+                @mouseout="
+                  ($event.currentTarget as HTMLElement).style.backgroundColor = 'transparent'
+                "
               >
                 <div
                   class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center"
                 >
-                  <ArrowUpRight :size="40" class="mx-auto" style="color: #00BFA6;" />
-                  <span class="text-xs tracking-[0.2em] uppercase mt-3 block" style="color: #E5E7EB;"
+                  <ArrowUpRight :size="40" class="mx-auto" style="color: #00bfa6" />
+                  <span class="text-xs tracking-[0.2em] uppercase mt-3 block" style="color: #e5e7eb"
                     >View Project</span
                   >
                 </div>
               </div>
             </div>
 
-            <div class="p-6 flex items-start justify-between gap-4" style="border-top: 1px solid rgba(0,191,166,0.12);">
+            <div
+              class="p-6 flex items-start justify-between gap-4"
+              style="border-top: 1px solid rgba(0, 191, 166, 0.12)"
+            >
               <div>
-                <div class="text-xs tracking-widest uppercase mb-1" style="color: rgba(0,191,166,0.5);">
+                <div
+                  class="text-xs tracking-widest uppercase mb-1"
+                  style="color: rgba(0, 191, 166, 0.5)"
+                >
                   {{ project.category }}
                 </div>
-                <h3
-                  class="text-lg font-semibold transition-colors"
-                  style="color: #E5E7EB;"
-                >
+                <h3 class="text-lg font-semibold transition-colors" style="color: #e5e7eb">
                   {{ project.title }}
                 </h3>
-                <div class="text-xs mt-1" style="color: rgba(229,231,235,0.3);">{{ project.tech }}</div>
+                <div class="text-xs mt-1" style="color: rgba(229, 231, 235, 0.3)">
+                  {{ project.tech }}
+                </div>
               </div>
-              <span class="text-xs font-light pt-1" style="color: rgba(229,231,235,0.25);">{{ project.year }}</span>
+              <span class="text-xs font-light pt-1" style="color: rgba(229, 231, 235, 0.25)">{{
+                project.year
+              }}</span>
             </div>
           </a>
         </div>
